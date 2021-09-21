@@ -76,8 +76,9 @@ while running:
             # bullet button
 
             if event.key == pygame.K_SPACE:
-                bulletX = playerX
-                fire_bullet(bulletX, bulletY)
+                if bullet_state is "ready":
+                    bulletX = playerX
+                    fire_bullet(bulletX, bulletY)
 
 
         if event.type == pygame.KEYUP:
