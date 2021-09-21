@@ -35,7 +35,7 @@ enemyY_change = 40
 bulletImg = pygame.image.load("hospital.png")
 bulletX = 0
 bulletY = 485
-bullet_changeY = 0
+bullet_changeY = 0.3
 bullet_changeX = 0
 bullet_state = "ready"
 
@@ -49,10 +49,10 @@ def player(x, y):
     screen.blit(playerImg, (x, y))
 
 
-def fire_nullet(x, y):
+def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
-    screen.blit(bulletImg, (x, y))
+    screen.blit(bulletImg, (x, y+5))
 
 
 # game loop
@@ -76,9 +76,8 @@ while running:
             # bullet button
 
             if event.key == pygame.K_SPACE:
-                bulletY = 485
                 bulletX = playerX
-                bullet_changeY += -0.01
+                fire_bullet(bulletX, bulletY)
 
 
         if event.type == pygame.KEYUP:
@@ -105,7 +104,16 @@ while running:
         enemyX_change = -0.08
         eY += enemyY_change
 
-    # bullet
+    # bullet movement
+    if bulletY <= 0:
+        bulletY = 485
+        bullet_state = "ready"
+    if bullet_state is "fire":
+        fire_bullet(bulletX, bulletY)
+        bulletY -= bullet_changeY
+
+
+
 
     emeny(eX, eY)
     player(playerX, playerY)
