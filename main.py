@@ -61,9 +61,8 @@ def fire_bullet(x, y):
 
 
 # collision
-def is_collision(ex, ey, bx, by):
-    d = math.sqrt((math.pow(ex - ey, 2)) + (math.pow(bx - by, 2)))
-    print(d)
+def is_collision(ex, bx, ey, by):
+    d = math.sqrt((math.pow(ex - bx, 2)) + (math.pow(ey - by, 2)))
     if d < 27:
         return True
     else:
@@ -108,7 +107,7 @@ while running:
         playerX = 770
     # enemy moment
     eX += enemyX_change
-
+    print()
     if eX <= 0:
         eX = 0
         enemyX_change = 0.08
@@ -127,12 +126,13 @@ while running:
         bulletY -= bullet_changeY
 
     # collision
-    collision = is_collision(eX, eY, bulletX, bulletY)
+    collision = is_collision(eX, bulletX, eY, bulletY)
     if collision:
         bulletY = 485
         bullet_state = "ready"
         score += 1
-        print(collision)
+        eX = random.randint(0, 800)
+        eY = 50
 
     emeny(eX, eY)
     player(playerX, playerY)
