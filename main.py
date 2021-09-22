@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 # window
 # initalize the pygame
@@ -39,6 +40,10 @@ bullet_changeY = 0.3
 bullet_changeX = 0
 bullet_state = "ready"
 
+# score
+score = 0
+# bullet 2
+
 
 def emeny(x, y):
     screen.blit(emeImg, (x, y))
@@ -52,7 +57,16 @@ def player(x, y):
 def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
-    screen.blit(bulletImg, (x, y+5))
+    screen.blit(bulletImg, (x, y + 5))
+
+
+# collision
+def is_collision(ex, ey, bx, by):
+    d = math.sqrt((math.pow(ex - ey, 2)) + (math.pow(bx - by, 2)))
+    if d < 27:
+        return True
+    else:
+        return False
 
 
 # game loop
@@ -80,11 +94,9 @@ while running:
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
 
-
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
-
 
     # checking for boundires
     playerX += playerX_change
@@ -113,8 +125,13 @@ while running:
         fire_bullet(bulletX, bulletY)
         bulletY -= bullet_changeY
 
-
-
+    # collision
+    collision = is_collision(eX, eY, bulletX, bulletY)
+    if collision:
+        bulletY = 485
+        bullet_state = "ready"
+        score += 1
+        print(collision)
 
     emeny(eX, eY)
     player(playerX, playerY)
