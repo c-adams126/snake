@@ -63,6 +63,7 @@ def fire_bullet(x, y):
 # collision
 def is_collision(ex, ey, bx, by):
     d = math.sqrt((math.pow(ex - ey, 2)) + (math.pow(bx - by, 2)))
+    print(d)
     if d < 27:
         return True
     else:
