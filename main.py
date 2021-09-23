@@ -24,11 +24,19 @@ playerY = 480
 playerX_change = 0
 
 # enemy
-emeImg = pygame.image.load("virus_yellow.png")
-eX = random.randint(0, 800)
-eY = 50
-enemyX_change = 0.08
-enemyY_change = 40
+emeImg = []
+eX = []
+eY = []
+enemyX_change = []
+enemyY_change = []
+num_of_enemy = 6
+
+for i in range(num_of_enemy):
+    emeImg.append(pygame.image.load("virus_yellow.png"))
+    eX.append(random.randint(0, 800))
+    eY.append(50)
+    enemyX_change.append(0.08)
+    enemyY_change.append(40)
 
 # bullet
 # ready is does not show
@@ -45,8 +53,8 @@ score = 0
 # bullet 2
 
 
-def emeny(x, y):
-    screen.blit(emeImg, (x, y))
+def emeny(x, y, i):
+    screen.blit(emeImg[i], (x, y))
 
 
 def player(x, y):
@@ -105,17 +113,27 @@ while running:
         playerX = 0
     elif playerX >= 770:
         playerX = 770
+
     # enemy moment
-    eX += enemyX_change
-    print()
-    if eX <= 0:
-        eX = 0
-        enemyX_change = 0.08
-        eY += enemyY_change
-    elif eX >= 770:
-        eX = 770
-        enemyX_change = -0.08
-        eY += enemyY_change
+    for i in range(num_of_enemy):
+        eX[i] += enemyX_change[i]
+        if eX[i] <= 0:
+            enemyX_change[i] = 0.08
+            eY[i] += enemyY_change[i]
+        elif eX[i] >= 770:
+            enemyX_change[i] = -0.08
+            eY[i] += enemyY_change[i]
+            # collision
+        collision = is_collision(eX[i], bulletX, eY[i], bulletY)
+        if collision:
+            bulletY = 485
+            bullet_state = "ready"
+            score += 1
+            eX[i] = random.randint(0, 800)
+            eY[i] = 50
+
+        print("they arre here", eX[i], eY[i], i)
+        emeny(eX[i], eY[i], i)
 
     # bullet movement
     if bulletY <= 0:
@@ -125,15 +143,8 @@ while running:
         fire_bullet(bulletX, bulletY)
         bulletY -= bullet_changeY
 
-    # collision
-    collision = is_collision(eX, bulletX, eY, bulletY)
-    if collision:
-        bulletY = 485
-        bullet_state = "ready"
-        score += 1
-        eX = random.randint(0, 800)
-        eY = 50
 
-    emeny(eX, eY)
+
+
     player(playerX, playerY)
     pygame.display.update()
