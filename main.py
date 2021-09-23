@@ -50,8 +50,13 @@ bullet_state = "ready"
 
 # score
 score = 0
+score_value = 0
+
+
 # bullet 2
 
+def show_score():
+    pass
 
 def emeny(x, y, i):
     screen.blit(emeImg[i], (x, y))
@@ -76,6 +81,14 @@ def is_collision(ex, bx, ey, by):
     else:
         return False
 
+
+# crash
+def crash(ex, px, ey, py):
+    d = math.sqrt((math.pow(ex - px, 2)) + (math.pow(ey - py, 2)))
+    if d < 10:
+        return True
+    else:
+        return False
 
 # game loop
 running = True
@@ -123,7 +136,7 @@ while running:
         elif eX[i] >= 770:
             enemyX_change[i] = -0.08
             eY[i] += enemyY_change[i]
-            # collision
+        # collision
         collision = is_collision(eX[i], bulletX, eY[i], bulletY)
         if collision:
             bulletY = 485
@@ -142,9 +155,6 @@ while running:
     if bullet_state is "fire":
         fire_bullet(bulletX, bulletY)
         bulletY -= bullet_changeY
-
-
-
 
     player(playerX, playerY)
     pygame.display.update()
