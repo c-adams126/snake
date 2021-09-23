@@ -2,6 +2,8 @@ import pygame
 import random
 import math
 
+from pygame import mixer
+
 # window
 # initalize the pygame
 pygame.init()
@@ -11,6 +13,10 @@ screen = pygame.display.set_mode((800, 600))
 
 # background
 bg = pygame.image.load("dark_blood.jpg")
+
+# bg sound
+mixer.music.load("inspiring-8-bit-563.wav")
+mixer.music.play(-1)
 
 # title and icon
 pygame.display.set_caption("space invaders")
