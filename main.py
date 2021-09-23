@@ -57,6 +57,14 @@ bullet_changeY = 0.3
 bullet_changeX = 0
 bullet_state = "ready"
 
+# bullet 2
+bulletImg2 = pygame.image.load("hospital.png")
+bulletX2 = 0
+bulletY2 = 485
+bullet_changeY2 = 0.3
+bullet_changeX2 = 0
+bullet_state2 = "ready"
+
 # score
 score = 0
 score_value = 0
