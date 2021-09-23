@@ -49,6 +49,7 @@ for i in range(num_of_enemy):
 # bullet
 # ready is does not show
 # fire means it is shown
+
 bulletImg = pygame.image.load("hospital.png")
 bulletX = 0
 bulletY = 485
@@ -152,7 +153,7 @@ while running:
             bulletY = 485
             bullet_state = "ready"
             score_value += 1
-            eX[i] = random.randint(0, 800)
+            eX[i] = random.randint(0, 770)
             eY[i] = 50
 
         print("they arre here", eX[i], eY[i], i)
