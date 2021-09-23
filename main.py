@@ -33,7 +33,7 @@ num_of_enemy = 6
 
 for i in range(num_of_enemy):
     emeImg.append(pygame.image.load("virus_yellow.png"))
-    eX.append(random.randint(0, 800))
+    eX.append(random.randint(0, 765))
     eY.append(50)
     enemyX_change.append(0.08)
     enemyY_change.append(40)
@@ -51,12 +51,14 @@ bullet_state = "ready"
 # score
 score = 0
 score_value = 0
-
-
+font = pygame.font.Font('freesansbold.ttf', 32)
+tx = 10
+ty = 10
 # bullet 2
 
-def show_score():
-    pass
+def show_score(x, y):
+    s = font.render("score:"+ str(score_value), True, (255, 255, 255))
+    screen.blit(s, (x, y))
 
 def emeny(x, y, i):
     screen.blit(emeImg[i], (x, y))
@@ -141,7 +143,7 @@ while running:
         if collision:
             bulletY = 485
             bullet_state = "ready"
-            score += 1
+            score_value += 1
             eX[i] = random.randint(0, 800)
             eY[i] = 50
 
@@ -157,4 +159,5 @@ while running:
         bulletY -= bullet_changeY
 
     player(playerX, playerY)
+    show_score(tx, ty)
     pygame.display.update()
