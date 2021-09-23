@@ -1,3 +1,5 @@
+# made by curtis adams
+
 import pygame
 import random
 import math
